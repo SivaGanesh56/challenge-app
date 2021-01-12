@@ -35,6 +35,78 @@
     text-align: center;
 }
 
-.result-card {
-    margin: 30px;
+.result-page h2 {
+    color: blue;
 }
+
+
+.result-card {
+    width: 11rem;
+    margin: 30px;
+    text-align: center;
+}
+
+.result-card.preview {
+    margin: 10px;
+    width: 10rem;
+}
+
+.result-card.winner {
+    width: 14rem;
+}
+
+.result-card.winner .card {
+    background-color: yellow;
+}
+
+.row.card-content {
+    display: flex;
+    justify-content: center;
+}
+
+.result-card .card {
+    background-color: azure;
+}
+
+.react-bootstrap-table {
+    border-left: 1px solid #ccc;
+    border-right: 1px solid #ccc;
+}
+
+.react-bootstrap-table .caret {
+    display: inline-block;
+    width: 0;
+    height: 0;
+    margin-left: 3px;
+    vertical-align: middle;
+    border-top: 4px dashed;
+    border-top: 4px solid;
+    border-right: 4px solid transparent;
+    border-left: 4px solid transparent;
+}
+
+.react-bootstrap-table th .order > .dropdown > .caret {
+    margin: 10px 0 10px 5px;
+    color: #cccccc;
+}
+
+.dropup {
+    position: relative;
+}
+
+.react-bootstrap-table .dropup .caret {
+    content: "";
+    border-top: 0;
+    border-bottom: 4px dashed;
+    border-bottom: 4px solid;
+}
+
+.fas.fa-trophy {
+    color: darkorange;
+}
+
+.fas.fa-certificate {
+    color: deepskyblue;
+    margin-left: 5px;
+}
+

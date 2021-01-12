@@ -1,3 +1,6 @@
+export const API = 'https://s3-ap-southeast-1.amazonaws.com/he-public-data/bets7747a43.json';
+
+// adding unique id to each item
 export function rebuildData(data) {
     data.forEach((_, index) => {
         data[index].id = uuidv4();
@@ -11,4 +14,3 @@ export function uuidv4() {
       return v.toString(16);
     });
 }
-  

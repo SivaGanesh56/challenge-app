@@ -1,10 +1,10 @@
 import React, { useEffect } from 'react';
 import axios from 'axios';
+import { useHistory } from 'react-router-dom';
 import { useData } from '../store';
 import Table from './Table';
-import { rebuildData } from './utils';
 import Player from './Player';
-import { useHistory } from 'react-router-dom';
+import { rebuildData, API } from './utils';
 
 const Home = () => {
 
@@ -16,21 +16,27 @@ const Home = () => {
 
     useEffect(() => {
         async function fetchData() {
-            const response = await axios.get('https://s3-ap-southeast-1.amazonaws.com/he-public-data/bets7747a43.json');
+            const response = await axios.get(API);
             rebuildData(response.data);
             dispatch({ type: 'updateData', payload: response.data })
         }
         fetchData();
     } ,[dispatch]);
 
+
     const handleClick = () => {
-        // window.localStorage.setItem("selectedPlayers", JSON.stringify(selectedPlayers));
         if (selectedPlayers.length < 9) {
             alert('please select 9 players');
+        } else {
+            try{
+                // window.localStorage.clear("selectedPlayers");
+                window.localStorage.setItem("selectedPlayers", JSON.stringify(selectedPlayers));
+            } catch(err) {
+                console.log('Failed to save in local storage');
+            }
+            history.push('/result');
         }
-        history.push('/result');
     }
-
 
     return (
         <div className="row">
@@ -47,6 +53,7 @@ const Home = () => {
                         return (
                             <Player
                             key={player.id}
+                            isPreview={true}
                             { ...player }
                             />
                         );

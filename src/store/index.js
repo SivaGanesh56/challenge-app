@@ -12,9 +12,6 @@ export const useData = () => {
 
 const Store = ({children}) => {
 
-    // const [data, setData] = useState([]);
-
-
     const [state, dispatch] = useReducer(Reducer, initialState);
 
     return (
@@ -23,7 +20,6 @@ const Store = ({children}) => {
         </Context.Provider>
     );
 }
-
 
 export const Context = createContext(initialState);
 export default Store;

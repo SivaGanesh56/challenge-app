@@ -1,12 +1,14 @@
 import React from 'react';
 import { Route, Redirect } from 'react-router-dom';
-import { useData } from '../store'
 
 const PrivateRoute = ({ component: Component, ...rest }) => {
 
-    const [state, dispatch] = useData();
-
-    const { selectedPlayers = [] } = state || {};
+    let selectedPlayers = [];
+    try {
+        selectedPlayers = JSON.parse(localStorage.getItem('selectedPlayers'));
+    } catch (error) {
+        console.log('unable to get data from localstorage')
+    }
 
     return (
         <Route

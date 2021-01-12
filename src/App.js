@@ -1,10 +1,11 @@
 import React from 'react';
+import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
 import Home from './components/Home';
 import Result from './components/Result';
 import PrivateRoute from './components/PrivateRoute';
-import './App.css';
 import Store from './store';
-import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
+import './App.css';
+
 
 const App = () => {
   return (

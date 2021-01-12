@@ -1,39 +1,43 @@
 import React, { useEffect, useState } from 'react';
-import { useData } from '../store';
-import ResultCard from './ResultCard';
+import Player from './Player';
 
 const Result = () => {
+
+    let players = [];
+    try {
+        players = JSON.parse(window.localStorage.getItem('selectedPlayers'));
+    } catch (error) {
+        console.log('unable to get data from local storage');
+    }
     
-    const [state, dispatch] = useData();
-
     const [bet, setBet] = useState(0);
-
-    const { selectedPlayers } = state;
+    const [index, setIndex] = useState(-1);
 
     function generateBet() {
-        const oppositeBet = Math.floor(Math.random()*10);
+        const oppositeBet = Math.floor((Math.random()*10) + 1);
         setBet(oppositeBet);
-        return selectedPlayers.findIndex((player) => player.Bet == oppositeBet);
+        return players.findIndex((player) => player.Bet == oppositeBet);
     }
-
 
     useEffect(() => {
         let index = generateBet();
         while (index < 0) {
             index = generateBet();
         }
-        selectedPlayers[index].status = true;
+        setIndex(index);
     },[]);
+
 
     return (
         <div className="result-page">
             <h2>Opposite Bet: {bet}</h2>
             <div className="row">
             {
-                selectedPlayers.map(player => {
+                players.map((player, indx) => {
                     return (
-                        <ResultCard
+                        <Player
                             key ={player.id}
+                            status = { index === indx }
                             {...player}
                         />
                     );

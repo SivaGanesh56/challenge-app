@@ -1,6 +1,7 @@
 import React from 'react';
-import BootstrapTable, { defaultSorted } from 'react-bootstrap-table-next';
+import BootstrapTable from 'react-bootstrap-table-next';
 import paginationFactory from 'react-bootstrap-table2-paginator';
+import ToolkitProvider, { Search } from 'react-bootstrap-table2-toolkit';
 import { useData } from '../store';
 
 function imageFormatter(cell, row) {
@@ -14,9 +15,12 @@ const Table = () => {
 
     const [state, dispatch] = useData();
 
+    const { SearchBar } = Search;
+
     function handleOnSelect(row, isSelect) {
         if (isSelect) {
             if (state.selectedPlayers.length >= 9) {
+                alert("maximum players can't exceed by 9")
                 return false;
             }
             dispatch({ type: 'selectPlayer', payload: row });
@@ -43,28 +47,45 @@ const Table = () => {
       }, {
         dataField: 'Name',
         text: 'Profile Name',
+        sort: true
       }, {
         dataField: 'Price',
         text: 'Price',
+        sort: true
       },{
         dataField: 'Bet',
         text: 'Bet',
+        sort: true
       }
     ];
 
     return (
         <div className="custom-table">
-            <BootstrapTable
-                columns={columns}
-                data={state.data}
-                keyField='id'
-                bordered={ false }
-                selectRow={selectRow}
-                pagination={ paginationFactory() }
-                striped
-                hover
-                condensed
-            />
+
+            <ToolkitProvider
+                 columns={columns}
+                 data={state.data}
+                 keyField='id'
+                 search
+            >
+            {
+                props => (
+                <div>
+                    <SearchBar { ...props.searchProps } placeholder="Search Players..." />
+                    <hr />
+                    <BootstrapTable
+                    { ...props.baseProps }
+                    selectRow={selectRow}
+                    pagination={ paginationFactory() }
+                    striped
+                    hover
+                    condensed
+                    bordered={ false }
+                    />
+                </div>
+                )
+            }
+            </ToolkitProvider>
         </div>
     );
 }
